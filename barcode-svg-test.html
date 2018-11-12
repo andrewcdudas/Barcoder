@@ -1,0 +1,103 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="barcode-svg.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <script src="barcode-svg.js"></script>
+  <title>Barcoder</title>
+</head>
+
+<header>
+  <span id="optionsToggle" class="center-vertical" onclick="showOptions()">
+  <svg width="1.5em" height="1.25em">
+    <use xlink:href="print-icon.svg#menu"/>
+  </svg>
+  </span>
+  
+  <h1 class="center-vertical" >Barcoder</h1>
+  
+  <div id="main-inputs" class="basic-functions">
+    <input id="header-label" class="header-input" type="text" placeholder="Label" spellcheck="false" oninput="updateLabel(this.value)">
+    <input id="header-upc" class="header-input" type="text" placeholder="UPC" spellcheck="false" oninput="updateUPC(this.value)">
+  </div>
+</header>
+
+<div id="optionsMenu" class="sidebar">
+  <section>
+    <span class="section-header">Basic</span>
+    <span class="option">Label<input type="text" id="sidebar-label" class="sidebar-input" spellcheck="false" oninput="updateLabel(this.value)"></span>
+    <span class="option">UPC<input type="text" id="sidebar-upc" class="sidebar-input" spellcheck="false" oninput="updateUPC(this.value)"></span>
+  </section>
+  <section>
+    <span class="section-header">Label</span>
+    <span class="option">Visible<label class="toggle-switch"><input type="checkbox" oninput="setVisibility(this.checked, document.getElementById('label-name'))" checked><span class="slider"></span></label></span>
+    <span class="option">Font</span>
+    <span class="option">Size<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
+    <span class="option">Position<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
+    <span class="option">Letter Spacing<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
+    <span class="option">Word Spacing<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
+  </section>
+  <section>
+    <span class="section-header">Barcode</span>
+    <span class="option">Width<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
+    <span class="option">Height<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
+    <span class="option">Position<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
+  </section>
+  <section>
+    <span class="section-header">UPC</span>
+    <span class="option">Visible<label class="toggle-switch"><input type="checkbox" oninput="setVisibility(this.checked, document.getElementById('label-upc'))" checked><span class="slider"></span></label></span>
+    <span class="option">Font</span>
+    <span class="option">Size<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
+    <span class="option">Position<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
+    <span class="option">Letter Spacing<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
+    <span class="option">Word Spacing<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
+  </section>
+  <section>
+    <span class="section-header">About</span>
+  </section>
+</div>
+
+<div id="main-content" class="main-content">
+
+  <svg class="drop-shadow sticker-size center-both"> 
+
+    <defs>
+
+      <rect id="bar-1" width="1" height="1" fill="black"/>
+      <rect id="bar-2" width="2" height="1" fill="black"/>
+      <rect id="bar-3" width="3" height="1" fill="black"/>
+      <rect id="bar-4" width="4" height="1" fill="black"/>
+
+      <svg id="sticker" viewBox="0 0 600 400">
+        <rect width="600" height="400" fill="white"/>
+        <text id="label-name" x="50%" y="15%" alignment-baseline="middle" text-anchor="middle">Placeholder</text>
+        <svg id="barcode" y="100" height="200" preserveAspectRatio="none"></svg>
+        <text id="label-upc" x="50%" y="88%" alignment-baseline="middle" text-anchor="middle">1234567890AB</text>
+      </svg>
+
+    </defs>
+
+    <use xlink:href="#sticker" class="sticker-size"/>
+
+  </svg>
+  
+</div>
+
+<div id="print-button" onclick="toggleDisplay('print-modal', true)">
+  <!--<img src="print-icon.svg">-->
+  <svg><use xlink:href="print-icon.svg#print"/></svg>
+</div>
+
+<div id="print-modal">
+  <div id="print-modal-container">
+    <span id="print-modal-close" onclick="toggleDisplay('print-modal', false)">X</span>
+    <form>
+      <input class="hide" type="radio" name="page" id="page-50" checked><label for="page-50" class="print-option"></label>
+      <input class="hide" type="radio" name="page" id="page-2"><label for="page-2" class="print-option"></label>
+      <input class="hide" type="radio" name="page" id="page-1"><label for="page-1" class="print-option"></label>
+    </form>
+    <div id="print-modal-content"></div>
+  </div>
+</div>
+
+<script>
+  getBarcode('1234567890ab', 'barcode', 'barcode');  
+</script>

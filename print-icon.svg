@@ -1,0 +1,17 @@
+<svg  version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <symbol id="print" width="20" height="20" viewBox="0 0 20 20">
+    <rect class="printer" y="6" rx="2" ry="2" style="width:20; height:11; fill:#333;"/>
+    <rect class="printer-top" y="6" rx="2" ry="2" style="width:20; height:6; fill:#555;"/>
+    <rect class="paper" x="4" y="1" width="12" height="6" style="fill:#DDD;"/>
+    <rect class="paper" x="4" y="13" style="width:12; height:6; fill:#DDD;"/>
+    <line class="lines" x1="6" y1="17" x2="14" y2="17" style="stroke:#555; stroke-width:1;"/>
+    <line class="lines" x1="6" y1="15" x2="14" y2="15" style="stroke:#555; stroke-width:1;"/>
+    <circle r="0.5" cx="17.5" cy="13.5" fill="#26D"/>
+  </symbol>
+  
+  <symbol id="menu" preserveAspectRatio="none" viewBox="0 0 1 5">
+    <rect width="1" height="1" y="0" fill="#DDD"/>
+    <rect width="1" height="1" y="2" fill="#DDD"/>
+    <rect width="1" height="1" y="4" fill="#DDD"/>
+  </symbol>
+</svg>

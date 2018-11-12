@@ -1,0 +1,320 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-size: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: #111;
+}
+
+#sticker {
+  font-family: Verdana;
+}
+
+#label-name {
+  font-size: 4em;
+  visibility: visible;
+}
+
+#label-upc {
+  font-size: 4em;
+  visibility: visible;
+}
+
+#optionsToggle {
+  left: 1em;
+  cursor: pointer;
+}
+
+.drop-shadow {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.6), 0 6px 20px 0 rgba(0, 0, 0, 0.57);
+}
+
+.sticker-size {
+  width: 600;
+  height: 400;
+}
+
+.debug {
+  background-color: red;
+}
+
+.center-vertical {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.center-both {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#main-content {
+  position: relative;
+  top: 3.5em;
+  height: 90vh;
+  transition: margin-left 0.5s;
+}
+
+#print-button {
+  position: fixed;
+  bottom: 2em;
+  right: 2em;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#print-button svg {
+  width: 4em;
+  height: 4em;
+  transition: 0.2s;
+}
+
+#print-button:hover {
+  bottom: 1.5em;
+  right: 1.5em;
+}
+
+#print-button img:hover {
+  width: 5em;
+  height: 5em;
+}
+
+#print-modal {
+  display: none;
+  position: fixed;
+  z-index:4;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+#print-modal-container {
+  position: relative;
+  height: 90vh;
+  width: 120vh;
+  margin: 5vh auto;
+  border-radius: 2vh;
+  background-color: #DDD;
+  overflow: hidden;
+}
+
+#print-modal-content {
+  width: 90vh;
+  height: 100%;
+}
+
+#print-modal-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.print-option {
+  cursor: pointer;
+  float: left;
+  clear: left;
+  width: 30vh;
+  height: 30vh;
+  background-color: #222;
+  border-left: 0 solid #26D;
+  border-right: 1vh solid #444;
+  transition: 0.2s;
+}
+
+.print-option:hover {
+  background-color: #333;
+}
+
+input:checked + .print-option {
+  background-color: #444;
+  border-left: 2vh solid #26D;
+  border-right: 0 solid #CCC;
+}
+
+h1 {
+  left: 3.5rem;
+  color: #DDD;
+  font-size: 2em;
+  user-select: none;
+}
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  overflow-x: hidden;
+  background-color: #222;
+  padding-top: 3.5em;
+  transition: 0.5s;
+}
+
+.sidebar section {
+  border-top: 1px solid #353535;
+  color: #DDD;
+  padding: 1em;
+  line-height: 2em;
+  user-select: none;
+}
+
+.sidebar .option {
+  display: block;
+  white-space: nowrap;
+  font-size: 1em;
+  width: 13em;
+}
+
+.sidebar .section-header {
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.sidebar .button {
+  float: right;
+  width: 2.5em;
+  height: 1.8em;
+  background-color: #333;
+  text-align: center;
+  cursor: pointer;
+}
+
+.sidebar-input {
+  float: right;
+  width: 8em;
+  height: 1.6em;
+  padding: 0 0.5em;
+  color: inherit;
+  background-color: #111;
+  border-style: none;
+  border-bottom: 0 solid #333;
+  transition: 0.2s;
+  border-radius: 0.3em;
+}
+
+.sidebar-input:hover {
+}
+
+.sidebar-input:focus {
+  outline: none;
+  border-bottom: 2px solid #26D;
+}
+
+.button:hover {
+  background-color: #444;
+}
+
+.button:active {
+  background-color: #555;
+}
+
+.pill-left {
+  border-radius: 0.75em 0 0 0.75em;
+}
+
+.pill-right {
+  border-radius: 0 0.75em 0.75em 0;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  background-color: #222;
+  height: 3.5em;
+  z-index: 2;
+}
+
+.basic-functions {
+  display: table;
+  margin: 0.5em auto;
+}
+
+#main-inputs {
+  transition: 0.4s;
+}
+
+.header-input {
+  width: 10em;
+  height: 2.5em;
+  color: #DDD;
+  text-align: center;
+  background-color: #111;
+  border-style: none;
+  border-bottom: 2px solid #222;
+  margin: 0 0.5em;
+  padding: 0;
+  transition: 0.2s;
+  border-radius: 0.3em;
+}
+
+.header-input:focus {
+  outline: none;
+  border-bottom: 2px solid #26D;
+}
+
+.toggle-switch {
+  position:relative;
+  float: right;
+  width: 5em;
+  height: 1.8em;
+}
+
+.toggle-switch input, .hide{
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 0.75em;
+  background-color: #333;
+  transition: 0.2s;
+}
+
+.slider:hover {
+  background-color: #444;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  width: 3em;
+  height: 1.2em;
+  left: 0.3em;
+  top: 0.3em;
+  background-color: #222;
+  border-radius: 0.5em;
+  transition: 0.2s;
+}
+
+input:checked + .slider {
+  background-color: #BBB;
+}
+
+input:checked + .slider:hover {
+  background-color: #DDD;
+}
+
+input:checked + .slider::before {
+  background-color: #444;
+  transform: translateX(1.4em);
+}
