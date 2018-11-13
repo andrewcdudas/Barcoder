@@ -34,8 +34,8 @@ body {
 }
 
 .sticker-size {
-  width: 600;
-  height: 400;
+  width: 90vh;
+  height: 60vh;
 }
 
 .debug {
