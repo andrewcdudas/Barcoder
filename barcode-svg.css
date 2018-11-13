@@ -114,15 +114,21 @@ body {
 
 #print-modal-close {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 2vh;
+  right: 2vh;
   cursor: pointer;
+}
+
+#print-modal-close svg {
+  width: 3vh;
+  height: 3vh;
 }
 
 .print-option {
   cursor: pointer;
   float: left;
   clear: left;
+  position: relative;
   width: 30vh;
   height: 30vh;
   background-color: #222;
@@ -133,6 +139,11 @@ body {
 
 .print-option:hover {
   background-color: #333;
+}
+
+.print-page-type {
+  height: 22vh;
+  width: 17vh;
 }
 
 input:checked + .print-option {

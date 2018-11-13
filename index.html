@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <link rel="stylesheet" type="text/css" href="barcode-svg.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <script src="barcode-svg.js"></script>
   <title>Barcoder</title>
 </head>
-
+  
 <header>
   <span id="optionsToggle" class="center-vertical" onclick="showOptions()">
   <svg width="1.5em" height="1.25em">
-    <use xlink:href="print-icon.svg#menu"/>
+    <use xlink:href="icons.svg#menu"/>
   </svg>
   </span>
   
@@ -84,17 +85,22 @@
 </div>
 
 <div id="print-button" onclick="toggleDisplay('print-modal', true)">
-  <!--<img src="print-icon.svg">-->
-  <svg><use xlink:href="print-icon.svg#print"/></svg>
+  <svg><use xlink:href="icons.svg#print"/></svg>
 </div>
 
 <div id="print-modal">
   <div id="print-modal-container">
-    <span id="print-modal-close" onclick="toggleDisplay('print-modal', false)">X</span>
+    <span id="print-modal-close" onclick="toggleDisplay('print-modal', false)"><svg><use xlink:href="icons.svg#close"/></svg></span>
     <form>
-      <input class="hide" type="radio" name="page" id="page-50" checked><label for="page-50" class="print-option"></label>
-      <input class="hide" type="radio" name="page" id="page-2"><label for="page-2" class="print-option"></label>
-      <input class="hide" type="radio" name="page" id="page-1"><label for="page-1" class="print-option"></label>
+      <input class="hide" type="radio" name="page" id="page-50" checked><label for="page-50" class="print-option">
+        <svg class="print-page-type center-both drop-shadow"><use xlink:href="icons.svg#page-50"/></svg>
+      </label>
+      <input class="hide" type="radio" name="page" id="page-2"><label for="page-2" class="print-option">
+        <svg class="print-page-type center-both drop-shadow"><use xlink:href="icons.svg#page-2"/></svg>
+      </label>
+      <input class="hide" type="radio" name="page" id="page-1"><label for="page-1" class="print-option">
+        <svg class="print-page-type center-both drop-shadow"><use xlink:href="icons.svg#page-1"/></svg>
+      </label>
     </form>
     <div id="print-modal-content"></div>
   </div>
@@ -103,4 +109,6 @@
 <script>
   getBarcode('1234567890ab', 'barcode', 'barcode');  
 </script>
+
+  
 </html>
