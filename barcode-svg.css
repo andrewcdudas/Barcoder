@@ -81,7 +81,7 @@ body {
   right: 1.5em;
 }
 
-#print-button img:hover {
+#print-button svg:hover {
   width: 5em;
   height: 5em;
 }
