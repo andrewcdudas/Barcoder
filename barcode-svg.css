@@ -71,8 +71,8 @@ body {
 }
 
 #print-button svg {
-  width: 4em;
-  height: 4em;
+  width: 6vh;
+  height: 6vh;
   transition: 0.2s;
 }
 
@@ -82,8 +82,8 @@ body {
 }
 
 #print-button svg:hover {
-  width: 5em;
-  height: 5em;
+  width: 7vh;
+  height: 7vh;
 }
 
 #print-modal {
