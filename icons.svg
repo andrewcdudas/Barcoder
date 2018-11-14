@@ -10,7 +10,7 @@
     <circle r="0.5" cx="17.5" cy="13.5" fill="#26D"/>
   </symbol>
   
-  <symbol id="exit" viewBox="0 0 10 10" style="stroke: #999">
+  <symbol id="close" viewBox="0 0 10 10" style="stroke: #999">
     <path d="M1 1 L9 9 M1 9 L9 1"/>
   </symbol>
   
@@ -34,5 +34,4 @@
     <use xlink:href="#page-1"/>
     <path d="M5 15 L80 15 M5 25 L80 25 M5 35 L80 35 M5 45 L80 45 M5 55 L80 55 M5 65 L80 65 M5 75 L80 75 M5 85 L80 85 M5 95 L80 95 M20 5 L20 105 M35 5 L35 105 M50 5 L50 105 M65 5 L65 105" style="stroke:#999; stroke-width:0.5;"/>
   </symbol>
-  
 </svg>
