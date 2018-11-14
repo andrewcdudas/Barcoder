@@ -64,26 +64,26 @@ body {
 
 #print-button {
   position: fixed;
-  bottom: 2em;
-  right: 2em;
+  bottom: 4vh;
+  right: 4vh;
   cursor: pointer;
   transition: 0.2s;
 }
 
 #print-button svg {
-  width: 6vh;
-  height: 6vh;
+  width: 10vh;
+  height: 10vh;
   transition: 0.2s;
 }
 
 #print-button:hover {
-  bottom: 1.5em;
-  right: 1.5em;
+  bottom: 3vh;
+  right: 3vh;
 }
 
 #print-button svg:hover {
-  width: 7vh;
-  height: 7vh;
+  width: 12vh;
+  height: 12vh;
 }
 
 #print-modal {
