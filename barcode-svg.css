@@ -108,11 +108,22 @@ body {
 }
 
 #print-modal-content {
+  position: absolute;
+  left: 30vh;
+  top: 0;
   width: 90vh;
   height: 100%;
 }
 
+#print-modal-content > iframe {
+  width:42.5vh;
+  height:55vh;
+  margin: 2vh 23.75vh;
+  border: none;
+}
+
 #print-modal-close {
+  z-index:10;
   position: absolute;
   top: 2vh;
   right: 2vh;
@@ -146,10 +157,27 @@ body {
   width: 17vh;
 }
 
+#p-50-f-options {
+  text-align: center;
+}
+
+#p-50-f-options input {
+  width:10vh;
+  text-align: center;
+}
+
+#print-final {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 10vh;
+}
+
 input:checked + .print-option {
   background-color: #444;
   border-left: 2vh solid #26D;
-  border-right: 0 solid #CCC;
+  border-right: 0 solid #444;
 }
 
 h1 {
@@ -157,6 +185,10 @@ h1 {
   color: #DDD;
   font-size: 2em;
   user-select: none;
+}
+
+h1 span {
+  color: #48F;
 }
 
 .sidebar {
@@ -328,4 +360,29 @@ input:checked + .slider:hover {
 input:checked + .slider::before {
   background-color: #444;
   transform: translateX(1.4em);
+}
+
+.temp-button {
+  cursor: pointer;
+  display:block;
+  float:left;
+  height:10vh;
+  width:50%;
+  text-align: center;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: bold;
+  background-color: #444;
+  line-height: 10vh;
+  color: #DDD;
+  border-bottom: 0 solid #26D;
+  transition: 0.2s;
+}
+
+.temp-button:hover {
+  border-bottom: 1vh solid #26D;
+}
+
+input:checked + .temp-button {
+  background-color: #26D;
 }

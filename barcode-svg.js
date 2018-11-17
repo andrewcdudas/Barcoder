@@ -1,8 +1,24 @@
 var optionsVisible=false;
 
-var upcElement = document.getElementById("label-upc");
+var labelImage = '<svg><use xlink:href="#sticker"></svg>';
 
 var labelInputHeader, upcInputHeader, labelInputSide, upcInputSide, labelElement, upcElement = null;
+
+function print()
+{
+  var window = document.getElementById("print-area").contentWindow;
+  console.log(window);
+  var doc = window.contentDocument;
+  console.log(doc);
+  var labels = doc.getElementsByClassName("label");
+  console.log(labels.length);
+  for(var i=0; i < labels.length; i++)
+  {
+    labels[i].innerHTML = labelImage;
+  }
+  window.focus();
+  window.print();
+}
 
 function toggleDisplay(elementID, visible)
 {
@@ -20,7 +36,6 @@ function updateLabel(label)
   labelElement.innerHTML = label;
   labelInputSide.value   = label;
   labelInputHeader.value = label;
-  console.log("updated label");
 }
 
 function updateUPC(upc)
@@ -32,10 +47,9 @@ function updateUPC(upc)
   if(upcInputSide == null)
     upcInputSide = document.getElementById("sidebar-upc");
   upcElement.innerHTML = upc;
-  upcInputHeader.value   = upc;
-  upcInputSide.value = upc;
+  upcInputHeader.value = upc;
+  upcInputSide.value   = upc;
   getBarcode(upc, "barcode");
-  console.log("updated upc");
 }
 
 function setVisibility(isVisible, target)
