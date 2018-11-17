@@ -6,9 +6,9 @@ var labelInputHeader, upcInputHeader, labelInputSide, upcInputSide, labelElement
 
 function print()
 {
-  var window = document.getElementById("print-area").contentWindow;
-  console.log(window);
-  var doc = window.contentDocument;
+  var win = document.getElementById("print-area").contentWindow;
+  console.log(win);
+  var doc = win.contentDocument;
   console.log(doc);
   var labels = doc.getElementsByClassName("label");
   console.log(labels.length);
@@ -16,8 +16,8 @@ function print()
   {
     labels[i].innerHTML = labelImage;
   }
-  window.focus();
-  window.print();
+  win.focus();
+  win.print();
 }
 
 function toggleDisplay(elementID, visible)
