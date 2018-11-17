@@ -8,7 +8,7 @@ function print()
 {
   var win = document.getElementById("print-area").contentWindow;
   console.log(win);
-  var doc = win.contentDocument;
+  var doc = win.document;
   console.log(doc);
   var labels = doc.getElementsByClassName("label");
   console.log(labels.length);
@@ -18,6 +18,7 @@ function print()
   }
   win.focus();
   win.print();
+  
 }
 
 function toggleDisplay(elementID, visible)
