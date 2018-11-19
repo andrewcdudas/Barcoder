@@ -1,18 +1,44 @@
-var optionsVisible=false;
+let optionsVisible=false;
 
-var labelImage = '<svg><use xlink:href="#sticker"></svg>';
+let labelImage = '<svg><use xlink:href="#sticker"></svg>';
 
-var labelInputHeader, upcInputHeader, labelInputSide, upcInputSide, labelElement, upcElement = null;
+let labelInputHeader, upcInputHeader, labelInputSide, upcInputSide, labelElement, upcElement = null;
+
+let sticker = {
+  label: {
+    value: "Placeholder",
+    font: "Roboto",
+    size: 4,
+    position: 50,
+    spacingLetter: 0,
+    spacingWord: 0,
+    visible: true
+  },
+  upc: {
+    value: "7654",
+    font: "Roboto",
+    size: 4,
+    position: 50,
+    spacingLetter: 0,
+    spacingWord: 0,
+    visible: true
+  },
+  barcode: {
+    width: 100,
+    height: 50,
+    position: 50
+  }
+};
 
 function print()
 {
-  var win = document.getElementById("print-area").contentWindow;
+  let win = document.getElementById("print-area").contentWindow;
   console.log(win);
-  var doc = win.document;
+  let doc = win.document;
   console.log(doc);
-  var labels = doc.getElementsByClassName("label");
+  let labels = doc.getElementsByClassName("label");
   console.log(labels.length);
-  for(var i=0; i < labels.length; i++)
+  for (let i=0; i < labels.length; i++)
   {
     labels[i].innerHTML = labelImage;
   }
@@ -28,6 +54,7 @@ function toggleDisplay(elementID, visible)
 
 function updateLabel(label)
 {
+  sticker.label.value = label;
   if(labelElement == null)
     labelElement = document.getElementById("label-name");
   if(labelInputHeader == null)
@@ -41,6 +68,7 @@ function updateLabel(label)
 
 function updateUPC(upc)
 {
+  sticker.upc.value = upc;
   if(upcElement == null)
     upcElement = document.getElementById("label-upc");
   if(upcInputHeader == null)
@@ -70,21 +98,21 @@ function test()
 
 function getBarcode(upc, barcodeId)
 {
-  var result = '';
-  var totalWidth = 0;
+  let result = '';
+  let totalWidth = 0;
   
   // get a string of widths
-  var widths = '7';
+  let widths = '7';
   widths += code128b[104].widths;
-  for(var i = 0; i < upc.length; i++)
+  for(let i = 0; i < upc.length; i++)
     widths += widthsFromChar(upc[i]);
   widths += code128b[checkSymbol(upc)].widths;
   widths += code128b[108].widths;
   widths += '7'
   
-  for(var i = 0; i < widths.length; i++)
+  for(let i = 0; i < widths.length; i++)
   {
-    var value = parseInt(widths[i]);
+    let value = parseInt(widths[i]);
     
     if(i % 2 != 0)
       result += blackBar(value, totalWidth);
@@ -103,7 +131,7 @@ function setViewBox(svgElementId, xStart, yStart, xEnd, yEnd)
 
 function widthsFromChar(char)
 {
-  for(var i=0; i < code128b.length; i++)
+  for(let i = 0; i < code128b.length; i++)
   {
     if(char === code128b[i].char)
     {
@@ -116,15 +144,15 @@ function widthsFromChar(char)
 
 function checkSymbol(input)
 {
-  var checkValue = 103;
-  for(var i = 0; i < input.length; i++)
+  let checkValue = 103;
+  for(let i = 0; i < input.length; i++)
     checkValue += (valueFromChar(input[i]) * (i + 1));
   return checkValue % 103;
 }
 
 function valueFromChar(char)
 {
-  for(var i = 0; i < code128b.length; i++)
+  for(let i = 0; i < code128b.length; i++)
   {
     if(char.toString() == code128b[i].char.toString())
       return code128b[i].value;
@@ -158,7 +186,7 @@ function Segment(char, value, binary, widths)
   this.widths = widths;
 }
 
-var code128b = [
+let code128b = [
   new Segment(' ', 0, '11011001100', '212222'),
   new Segment('!', 1, '11001101100', '222122'),
   new Segment('"', 2, '11001100110', '222221'),
