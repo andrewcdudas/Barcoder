@@ -37,7 +37,7 @@ let sticker = {
 function print()
 {
   printWindow.document.getElementById("barcode").innerHTML = sticker.barcode.svg;
-  setViewBox(printWindow.document.getElementById("barcode"), 0, 0, sticker.barcode.svgWidth, 1);
+  printWindow.document.getElementById("barcode").setAttribute("viewBox", "0 0 " + sticker.barcode.svgWidth + " 1");
   printWindow.focus();
   printWindow.print();
 }
