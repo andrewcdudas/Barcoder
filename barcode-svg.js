@@ -35,6 +35,7 @@ let sticker = {
 
 function print()
 {
+  printWindow.document.getElementById("barcode").innerHTML = sticker.barcode.svg;
   printWindow.focus();
   printWindow.print();
 }
