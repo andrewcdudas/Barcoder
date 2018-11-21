@@ -116,9 +116,10 @@ body {
 }
 
 #print-modal-content > iframe {
-  width:42.5vh;
-  height:55vh;
-  margin: 2vh 23.75vh;
+  display: block;
+  width: 41.25vh;
+  height: 55vh;
+  margin: 2vh auto;
   border: none;
 }
 

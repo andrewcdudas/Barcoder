@@ -36,6 +36,8 @@ let sticker = {
 
 function print()
 {
+  printWindow.document.getElementById("label-name").innerHTML = sticker.label.value;
+  printWindow.document.getElementById("label-upc").innerHTML = sticker.upc.value;
   printWindow.document.getElementById("barcode").innerHTML = sticker.barcode.svg;
   printWindow.document.getElementById("barcode").setAttribute("viewBox", "0 0 " + sticker.barcode.svgWidth + " 1");
   printWindow.focus();
