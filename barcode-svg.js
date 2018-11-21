@@ -1,3 +1,5 @@
+"use strict";
+
 let optionsVisible=false;
 
 let labelImage = '<svg><use xlink:href="#sticker"></svg>';
@@ -26,25 +28,16 @@ let sticker = {
   barcode: {
     width: 100,
     height: 50,
-    position: 50
+    position: 50,
+    svg: ""
   }
 };
 
 function print()
 {
   let win = document.getElementById("print-area").contentWindow;
-  console.log(win);
-  let doc = win.document;
-  console.log(doc);
-  let labels = doc.getElementsByClassName("label");
-  console.log(labels.length);
-  for (let i=0; i < labels.length; i++)
-  {
-    labels[i].innerHTML = labelImage;
-  }
   win.focus();
   win.print();
-  
 }
 
 function toggleDisplay(elementID, visible)
@@ -122,6 +115,7 @@ function getBarcode(upc, barcodeId)
   
   setViewBox(barcodeId, 0, 0, totalWidth, 1);
   document.getElementById(barcodeId).innerHTML = result;
+  sticker.barcode.svg = result;
 }
 
 function setViewBox(svgElementId, xStart, yStart, xEnd, yEnd) 
