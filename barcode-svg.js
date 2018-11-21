@@ -29,6 +29,7 @@ let sticker = {
     width: 100,
     height: 50,
     position: 50,
+    svgWidth: 0,
     svg: ""
   }
 };
@@ -36,6 +37,7 @@ let sticker = {
 function print()
 {
   printWindow.document.getElementById("barcode").innerHTML = sticker.barcode.svg;
+  setViewBox(printWindow.document.getElementById("barcode"), 0, 0, sticker.bacode.svgWidth, 1);
   printWindow.focus();
   printWindow.print();
 }
@@ -114,6 +116,7 @@ function getBarcode(upc, barcodeId)
   }
   
   setViewBox(barcodeId, 0, 0, totalWidth, 1);
+  sticker.barcode.svgWidth = totalWidth;
   document.getElementById(barcodeId).innerHTML = result;
   sticker.barcode.svg = result;
 }
