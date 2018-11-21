@@ -3,7 +3,7 @@
 let optionsVisible=false;
 
 let labelImage = '<svg><use xlink:href="#sticker"></svg>';
-
+let printWindow = document.getElementById("print-area").contentWindow;
 let labelInputHeader, upcInputHeader, labelInputSide, upcInputSide, labelElement, upcElement = null;
 
 let sticker = {
@@ -35,9 +35,8 @@ let sticker = {
 
 function print()
 {
-  let win = document.getElementById("print-area").contentWindow;
-  win.focus();
-  win.print();
+  printWindow.focus();
+  printWindow.print();
 }
 
 function toggleDisplay(elementID, visible)
