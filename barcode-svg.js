@@ -146,7 +146,7 @@ function checkSymbol(input)
   let checkValue = 103;
   for(let i = 0; i < input.length; i++)
     checkValue += (valueFromChar(input[i]) * (i + 1));
-  return checkValue % 103;
+  return (checkValue % 103) + 1;
 }
 
 function valueFromChar(char)
@@ -263,8 +263,8 @@ let code128b = [
   new Segment('j', 74, '10000110010', '142211'),
   new Segment('k', 75, '11000010010', '241211'),
   new Segment('l', 76, '11001010000', '221114'),
-  new Segment('m', 77, '11110111010', '413111'),
-  new Segment('n', 78, '11000010100', '241112'),
+  new Segment('m', 77, '11110111010', '413111'), // what i got as a check digit for 0123456789
+  new Segment('n', 78, '11000010100', '241112'), // valid check digit of 0123456789
   new Segment('o', 79, '10001111010', '134111'),
   new Segment('p', 80, '10100111100', '111242'),
   new Segment('q', 81, '10010111100', '121142'),
