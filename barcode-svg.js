@@ -114,7 +114,7 @@ let setup = {
 function print()
 {
   let b = printWindow.document.getElementById("barcode");
-  let u = printWIndow.document.getElementById("label-upc");
+  let u = printWindow.document.getElementById("label-upc");
   printWindow.document.getElementById("label-name").innerHTML = sticker.label.value;
   printWindow.document.getElementById("label-upc").innerHTML = sticker.upc.value;
   b.innerHTML = sticker.barcode.svg;
