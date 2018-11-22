@@ -4,7 +4,8 @@ let optionsVisible=false;
 
 let labelImage = '<svg><use xlink:href="#sticker"></svg>';
 let printWindow = document.getElementById("print-area").contentWindow;
-let labelInputHeader, upcInputHeader, labelInputSide, upcInputSide, labelElement, upcElement = null;
+let labelInputHeader, upcInputHeader, labelInputSide, upcInputSide, labelElement = null;
+let upcElement = document.getElementById('label-upc');
 let barcodeElement = document.getElementById('barcode');
 
 let sticker = {
@@ -20,8 +21,31 @@ let sticker = {
   upc: {
     value: "7654",
     font: "Roboto",
-    size: 4,
-    position: 50,
+    size: {
+      get value() {return sticker.upc.size._value / 10},
+      _value: 30,
+      step: 5,
+      increment: function() {
+        sticker.upc.size._value = Math.min(sticker.upc.size._value + sticker.upc.size.step, 100);
+        setup.upc(upcElement);
+      },
+      decrement: function() {
+        sticker.upc.size._value = Math.max(sticker.upc.size._value - sticker.upc.size.step, 5);
+        setup.upc(upcElement);
+      }
+    },
+    position: {
+      value: 88,
+      step: 2,
+      increment: function() {
+        sticker.upc.position.value = Math.min(sticker.upc.position.value + sticker.upc.position.step, 100);
+        setup.upc(upcElement);
+      },
+      decrement: function() {
+        sticker.upc.position.value = Math.max(sticker.upc.position.value - sticker.upc.position.step, 0);
+        setup.upc(upcElement);
+      }
+    },
     spacingLetter: 0,
     spacingWord: 0,
     visible: true
@@ -68,15 +92,6 @@ let sticker = {
   }
 };
 
-function increment(value, step, maxValue) {
-  return Math.min(value + step, maxValue);
-}
-
-function decrement(value, minValue) {
-  value = value > minValue ? value - 1 : minValue;
-  console.log(value);
-}
-
 let setup = {
   all: function(labelElem, upcElem, barcodeElem) {
     setup.label(labelElem);
@@ -84,10 +99,13 @@ let setup = {
     setup.barcode(barcodeElem);
   },
   label: function(labelElem) {},
-  upc: function(upcElem) {},
+  upc: function(upcElem) {
+    upcElem.style.fontSize = sticker.upc.size.value + "em";
+    upcElem.setAttribute('y', sticker.upc.position.value + '%');
+  },
   barcode: function(barcodeElem) {
     barcodeElem.setAttribute('width', sticker.barcode.width.value + '%');
-    barcodeElem.setAttribute('x', (100 - sticker.barcode.width.value)/2 + '%')
+    barcodeElem.setAttribute('x', (100 - sticker.barcode.width.value)/2 + '%');
     barcodeElem.setAttribute('height', sticker.barcode.height.value + '%');
     barcodeElem.setAttribute('y', sticker.barcode.position.value + '%');
   }
@@ -96,11 +114,12 @@ let setup = {
 function print()
 {
   let b = printWindow.document.getElementById("barcode");
+  let u = printWIndow.document.getElementById("label-upc");
   printWindow.document.getElementById("label-name").innerHTML = sticker.label.value;
   printWindow.document.getElementById("label-upc").innerHTML = sticker.upc.value;
   b.innerHTML = sticker.barcode.svg;
   b.setAttribute("viewBox", "0 0 " + sticker.barcode.svgWidth + " 1");
-  setup.barcode(b);
+  setup.all(0, u, b);
   printWindow.focus();
   printWindow.print();
 }

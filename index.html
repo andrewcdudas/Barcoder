@@ -37,6 +37,7 @@
     <span class="option">Letter Spacing<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
     <span class="option">Word Spacing<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
   </section>
+  
   <section>
     <span class="section-header">Barcode</span>
     <span class="option">Width
@@ -52,12 +53,19 @@
       <span class="button pill-left" onclick="sticker.barcode.position.increment()">-</span>
     </span>
   </section>
+  
   <section>
     <span class="section-header">UPC</span>
     <span class="option">Visible<label class="toggle-switch"><input type="checkbox" oninput="setVisibility(this.checked, document.getElementById('label-upc'))" checked><span class="slider"></span></label></span>
     <span class="option">Font</span>
-    <span class="option">Size<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
-    <span class="option">Position<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
+    <span class="option">Size
+      <span class="button pill-right" onclick="sticker.upc.size.increment()">+</span>
+      <span class="button pill-left" onclick="sticker.upc.size.decrement()">-</span>
+    </span>
+    <span class="option">Position
+      <span class="button pill-right" onclick="sticker.upc.position.decrement()">+</span>
+      <span class="button pill-left" onclick="sticker.upc.position.increment()">-</span>
+    </span>
     <span class="option">Letter Spacing<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
     <span class="option">Word Spacing<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
   </section>
@@ -135,7 +143,7 @@
 </div>
 
   <script src="barcode-svg.js"></script>
-  <script>getBarcode('1234567890ab', 'barcode', 'barcode'); setup.all(0,0,barcodeElement);</script>
+  <script>getBarcode('1234567890ab', 'barcode', 'barcode'); setup.all(0, upcElement, barcodeElement);</script>
   
   
 </html>
