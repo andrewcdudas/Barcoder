@@ -5,6 +5,7 @@ let optionsVisible=false;
 let labelImage = '<svg><use xlink:href="#sticker"></svg>';
 let printWindow = document.getElementById("print-area").contentWindow;
 let labelInputHeader, upcInputHeader, labelInputSide, upcInputSide, labelElement, upcElement = null;
+let barcodeElement = document.getElementById('barcode');
 
 let sticker = {
   label: {
@@ -26,20 +27,80 @@ let sticker = {
     visible: true
   },
   barcode: {
-    width: 100,
-    height: 50,
-    position: 50,
+    width: {
+      value: 90,
+      step: 5,
+      increment: function() {
+        sticker.barcode.width.value = Math.min(sticker.barcode.width.value + sticker.barcode.width.step, 100);
+        setup.barcode(barcodeElement);
+      },
+      decrement: function() {
+        sticker.barcode.width.value = Math.max(sticker.barcode.width.value - sticker.barcode.width.step, 30);
+        setup.barcode(barcodeElement);
+      }
+    },
+    height: {
+      value: 50,
+      step: 5,
+      increment: function() {
+        sticker.barcode.height.value = Math.min(sticker.barcode.height.value + sticker.barcode.height.step, 100);
+        setup.barcode(barcodeElement);
+      },
+      decrement: function() {
+        sticker.barcode.height.value = Math.max(sticker.barcode.height.value - sticker.barcode.height.step, 10);
+        setup.barcode(barcodeElement);
+      }
+    },
+    position: {
+      value: 25,
+      step: 5,
+      increment: function() {
+        sticker.barcode.position.value = Math.min(sticker.barcode.position.value + sticker.barcode.position.step, 100);
+        setup.barcode(barcodeElement);
+      },
+      decrement: function() {
+        sticker.barcode.position.value = Math.max(sticker.barcode.position.value - sticker.barcode.position.step, 0);
+        setup.barcode(barcodeElement);
+      }
+    },
     svgWidth: 0,
     svg: ""
   }
 };
 
+function increment(value, step, maxValue) {
+  return Math.min(value + step, maxValue);
+}
+
+function decrement(value, minValue) {
+  value = value > minValue ? value - 1 : minValue;
+  console.log(value);
+}
+
+let setup = {
+  all: function(labelElem, upcElem, barcodeElem) {
+    setup.label(labelElem);
+    setup.upc(upcElem);
+    setup.barcode(barcodeElem);
+  },
+  label: function(labelElem) {},
+  upc: function(upcElem) {},
+  barcode: function(barcodeElem) {
+    barcodeElem.setAttribute('width', sticker.barcode.width.value + '%');
+    barcodeElem.setAttribute('x', (100 - sticker.barcode.width.value)/2 + '%')
+    barcodeElem.setAttribute('height', sticker.barcode.height.value + '%');
+    barcodeElem.setAttribute('y', sticker.barcode.position.value + '%');
+  }
+}
+
 function print()
 {
+  let b = printWindow.document.getElementById("barcode");
   printWindow.document.getElementById("label-name").innerHTML = sticker.label.value;
   printWindow.document.getElementById("label-upc").innerHTML = sticker.upc.value;
-  printWindow.document.getElementById("barcode").innerHTML = sticker.barcode.svg;
-  printWindow.document.getElementById("barcode").setAttribute("viewBox", "0 0 " + sticker.barcode.svgWidth + " 1");
+  b.innerHTML = sticker.barcode.svg;
+  b.setAttribute("viewBox", "0 0 " + sticker.barcode.svgWidth + " 1");
+  setup.barcode(b);
   printWindow.focus();
   printWindow.print();
 }

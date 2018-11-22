@@ -10,8 +10,9 @@ body {
   background-color: #111;
 }
 
-#sticker {
-  font-family: Verdana;
+#barcode {
+  width: 90%;
+  height: 100;
 }
 
 #label-name {
@@ -20,7 +21,7 @@ body {
 }
 
 #label-upc {
-  font-size: 4em;
+  font-size: 3em;
   visibility: visible;
 }
 
@@ -56,8 +57,9 @@ body {
 }
 
 #main-content {
+  box-sizing: content-box;
   position: relative;
-  top: 3.5em;
+  top: 10vh;
   height: 90vh;
   transition: margin-left 0.5s;
 }
