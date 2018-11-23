@@ -123,11 +123,11 @@ let setup = {
     setup.barcode(barcodeElem);
   },
   label: function(labelElem) {
-    labelElem.style.fontSize = sticker.label.size.value + 'em';
+    labelElem.style.fontSize = sticker.label.size._value;
     labelElem.setAttribute('y', sticker.label.position.value + '%');
   },
   upc: function(upcElem) {
-    upcElem.style.fontSize = sticker.upc.size.value + 'em';
+    upcElem.style.fontSize = sticker.upc.size._value;
     upcElem.setAttribute('y', sticker.upc.position.value + '%');
   },
   barcode: function(barcodeElem) {
