@@ -25,17 +25,38 @@
 <div id="optionsMenu" class="sidebar">
   <section>
     <span class="section-header">Basic</span>
-    <span class="option">Label<input type="text" id="sidebar-label" class="sidebar-input" spellcheck="false" oninput="updateLabel(this.value)"></span>
-    <span class="option">UPC<input type="text" id="sidebar-upc" class="sidebar-input" spellcheck="false" oninput="updateUPC(this.value)"></span>
+    <span class="option">Label
+      <input type="text" id="sidebar-label" class="sidebar-input" spellcheck="false" oninput="updateLabel(this.value)">
+    </span>
+    <span class="option">UPC
+      <input type="text" id="sidebar-upc" class="sidebar-input" spellcheck="false" oninput="updateUPC(this.value)">
+    </span>
   </section>
+  
   <section>
     <span class="section-header">Label</span>
-    <span class="option">Visible<label class="toggle-switch"><input type="checkbox" oninput="setVisibility(this.checked, document.getElementById('label-name'))" checked><span class="slider"></span></label></span>
+    <span class="option">Visible
+      <label class="toggle-switch">
+        <input type="checkbox" oninput="setVisibility(this.checked, document.getElementById('label-name'))" checked><span class="slider"></span>
+      </label>
+    </span>
     <span class="option">Font</span>
-    <span class="option">Size<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
-    <span class="option">Position<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
-    <span class="option">Letter Spacing<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
-    <span class="option">Word Spacing<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
+    <span class="option">Size
+      <span class="button pill-right" onclick="sticker.label.size.increment()">+</span>
+      <span class="button pill-left" onclick="sticker.label.size.decrement()">-</span>
+    </span>
+    <span class="option">Position
+      <span class="button pill-right" onclick="sticker.label.position.decrement()">+</span>
+      <span class="button pill-left" onclick="sticker.label.position.increment()">-</span>
+    </span>
+    <span class="option">Letter Spacing
+      <span class="button pill-right">+</span>
+      <span class="button pill-left">-</span>
+    </span>
+    <span class="option">Word Spacing
+      <span class="button pill-right">+</span>
+      <span class="button pill-left">-</span>
+    </span>
   </section>
   
   <section>
@@ -56,7 +77,11 @@
   
   <section>
     <span class="section-header">UPC</span>
-    <span class="option">Visible<label class="toggle-switch"><input type="checkbox" oninput="setVisibility(this.checked, document.getElementById('label-upc'))" checked><span class="slider"></span></label></span>
+    <span class="option">Visible
+      <label class="toggle-switch">
+        <input type="checkbox" oninput="setVisibility(this.checked, document.getElementById('label-upc'))" checked><span class="slider"></span>
+      </label>
+    </span>
     <span class="option">Font</span>
     <span class="option">Size
       <span class="button pill-right" onclick="sticker.upc.size.increment()">+</span>
@@ -66,9 +91,16 @@
       <span class="button pill-right" onclick="sticker.upc.position.decrement()">+</span>
       <span class="button pill-left" onclick="sticker.upc.position.increment()">-</span>
     </span>
-    <span class="option">Letter Spacing<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
-    <span class="option">Word Spacing<span class="button pill-right">+</span><span class="button pill-left">-</span></span>
+    <span class="option">Letter Spacing
+      <span class="button pill-right">+</span>
+      <span class="button pill-left">-</span>
+    </span>
+    <span class="option">Word Spacing
+      <span class="button pill-right">+</span>
+      <span class="button pill-left">-</span>
+    </span>
   </section>
+  
   <section>
     <span class="section-header">About</span>
   </section>
@@ -143,7 +175,7 @@
 </div>
 
   <script src="barcode-svg.js"></script>
-  <script>getBarcode('1234567890ab', 'barcode', 'barcode'); setup.all(0, upcElement, barcodeElement);</script>
+  <script>getBarcode('1234567890ab', 'barcode', 'barcode'); setup.all(labelElement, upcElement, barcodeElement);</script>
   
   
 </html>
