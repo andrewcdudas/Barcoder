@@ -140,13 +140,14 @@ let setup = {
 
 function print()
 {
+  let l = printWindow.document.getElementById("label-name");
   let b = printWindow.document.getElementById("barcode");
   let u = printWindow.document.getElementById("label-upc");
   printWindow.document.getElementById("label-name").innerHTML = sticker.label.value;
   printWindow.document.getElementById("label-upc").innerHTML = sticker.upc.value;
   b.innerHTML = sticker.barcode.svg;
   b.setAttribute("viewBox", "0 0 " + sticker.barcode.svgWidth + " 1");
-  setup.all(0, u, b);
+  setup.all(l, u, b);
   printWindow.focus();
   printWindow.print();
 }
