@@ -14,15 +14,14 @@ let sticker = {
     value: "Placeholder",
     font: "Roboto",
     size: {
-      get value() { return sticker.label.size._value / 10},
-      _value: 40,
+      value: 60,
       step: 5,
       increment: function() {
-        this._value = Math.min(this._value + this.step, 100);
+        this.value = Math.min(this.value + this.step, 200);
         setup.label(labelElement);
       },
       decrement: function() {
-        this._value = Math.max(this._value - this.step, 5);
+        this.value = Math.max(this.value - this.step, 20);
         setup.label(labelElement);
       }
     },
@@ -46,15 +45,14 @@ let sticker = {
     value: "7654",
     font: "Roboto",
     size: {
-      get value() {return sticker.upc.size._value / 10},
-      _value: 30,
+      value: 40,
       step: 5,
       increment: function() {
-        sticker.upc.size._value = Math.min(sticker.upc.size._value + sticker.upc.size.step, 100);
+        this.value = Math.min(this.value + this.step, 200);
         setup.upc(upcElement);
       },
       decrement: function() {
-        sticker.upc.size._value = Math.max(sticker.upc.size._value - sticker.upc.size.step, 5);
+        this.value = Math.max(this.value - this.step, 20);
         setup.upc(upcElement);
       }
     },
@@ -88,7 +86,7 @@ let sticker = {
       }
     },
     height: {
-      value: 50,
+      value: 45,
       step: 5,
       increment: function() {
         sticker.barcode.height.value = Math.min(sticker.barcode.height.value + sticker.barcode.height.step, 100);
@@ -100,7 +98,7 @@ let sticker = {
       }
     },
     position: {
-      value: 25,
+      value: 30,
       step: 5,
       increment: function() {
         sticker.barcode.position.value = Math.min(sticker.barcode.position.value + sticker.barcode.position.step, 100);
@@ -123,11 +121,11 @@ let setup = {
     setup.barcode(barcodeElem);
   },
   label: function(labelElem) {
-    labelElem.style.fontSize = sticker.label.size._value;
+    labelElem.style.fontSize = sticker.label.size.value;
     labelElem.setAttribute('y', sticker.label.position.value + '%');
   },
   upc: function(upcElem) {
-    upcElem.style.fontSize = sticker.upc.size._value;
+    upcElem.style.fontSize = sticker.upc.size.value;
     upcElem.setAttribute('y', sticker.upc.position.value + '%');
   },
   barcode: function(barcodeElem) {
