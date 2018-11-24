@@ -9,106 +9,97 @@ let labelElement = document.getElementById('label-name');
 let upcElement = document.getElementById('label-upc');
 let barcodeElement = document.getElementById('barcode');
 
+const propertyType = {
+  VISIBILITY:    1,
+  FONTFACE:      2,
+  FONTSIZE:      3,
+  YPOSITION:     4,
+  XPOSITION:     5,
+  WIDTH:         6,
+  HEIGHT:        7,
+  LETTERSPACING: 8,
+  WORDSPACING:   9
+};
+
+class Property {
+  
+  constructor(type, targetElement, value, step, min, max) {
+    this.value = value;
+    this.step = step;
+    this.min = min;
+    this.max = max;
+    this.type = type;
+    this.elem = targetElement;
+  }
+  
+  update(targetElement) {
+    switch(this.type) {
+      case 1: // visibility
+        targetElement.style.visibility = value > 0 ? "visible" : "hidden";
+        break;
+      case 2: // font-face
+        
+        break;
+      case propertyType.FONTSIZE: // font-size
+        targetElement.style.fontSize = this.value;
+        break;
+      case propertyType.YPOSITION: // Y (vertical) position
+        targetElement.setAttribute('y', this.value + '%');
+        break;
+      case propertyType.XPOSITION: // X (horizontal) position
+        targetElement.setAttribute('x', this.value + '%');
+        break;
+      case propertyType.WIDTH: // width
+        targetElement.setAttribute('width', this.value + '%');
+        targetElement.setAttribute('x', (100 - this.value)/2 + '%');
+        break;
+      case propertyType.HEIGHT: // height
+        targetElement.setAttribute('height', this.value + '%');
+        break;
+      case propertyType.LETTERSPACING: // letter-spacing
+        targetElement.style.letterSpacing = this.value;
+        break;
+      case propertyType.WORDSPACING: // word-spacing
+        targetElement.style.wordSpacing = this.value;
+        break;
+    }
+  }
+  
+  increment() {
+    this.value = Math.min(this.value + this.step, this.max);
+    this.update(this.elem);
+  }
+  
+  decrement() {
+    this.value = Math.max(this.value - this.step, this.min);
+    this.update(this.elem);
+  }
+  
+}
+
 let sticker = {
   label: {
-    value: "Placeholder",
+    value: "",
     font: "Roboto",
-    size: {
-      value: 60,
-      step: 5,
-      increment: function() {
-        this.value = Math.min(this.value + this.step, 200);
-        setup.label(labelElement);
-      },
-      decrement: function() {
-        this.value = Math.max(this.value - this.step, 20);
-        setup.label(labelElement);
-      }
-    },
-    position: {
-      value: 18,
-      step: 2,
-      increment: function() {
-        this.value = Math.min(this.value + this.step, 100);
-        setup.label(labelElement);
-      },
-      decrement: function() {
-        this.value = Math.max(this.value - this.step, 0);
-        setup.label(labelElement);
-      }
-    },
-    spacingLetter: 0,
-    spacingWord: 0,
+    size:          new Property(propertyType.FONTSIZE, labelElement, 60, 5, 20, 200),
+    position:      new Property(propertyType.YPOSITION, labelElement, 18, 2, 0, 100),
+    spacingLetter: new Property(propertyType.LETTERSPACING, labelElement, 0, 2, -10, 100),
+    spacingWord:   new Property(propertyType.WORDSPACING, labelElement, 0, 2, -20, 60),
     visible: true
   },
   upc: {
-    value: "7654",
+    value: "",
     font: "Roboto",
-    size: {
-      value: 40,
-      step: 5,
-      increment: function() {
-        this.value = Math.min(this.value + this.step, 200);
-        setup.upc(upcElement);
-      },
-      decrement: function() {
-        this.value = Math.max(this.value - this.step, 20);
-        setup.upc(upcElement);
-      }
-    },
-    position: {
-      value: 84,
-      step: 2,
-      increment: function() {
-        sticker.upc.position.value = Math.min(sticker.upc.position.value + sticker.upc.position.step, 100);
-        setup.upc(upcElement);
-      },
-      decrement: function() {
-        sticker.upc.position.value = Math.max(sticker.upc.position.value - sticker.upc.position.step, 0);
-        setup.upc(upcElement);
-      }
-    },
-    spacingLetter: 0,
-    spacingWord: 0,
+    size:          new Property(propertyType.FONTSIZE, upcElement, 40, 5, 20, 200),
+    position:      new Property(propertyType.YPOSITION, upcElement, 84, 2, 0, 100),
+    spacingLetter: new Property(propertyType.LETTERSPACING, upcElement, 0, 2, -10, 100),
+    spacingWord:   new Property(propertyType.WORDSPACING, upcElement, 0, 2, -20, 60),
     visible: true
   },
   barcode: {
-    width: {
-      value: 90,
-      step: 5,
-      increment: function() {
-        sticker.barcode.width.value = Math.min(sticker.barcode.width.value + sticker.barcode.width.step, 100);
-        setup.barcode(barcodeElement);
-      },
-      decrement: function() {
-        sticker.barcode.width.value = Math.max(sticker.barcode.width.value - sticker.barcode.width.step, 30);
-        setup.barcode(barcodeElement);
-      }
-    },
-    height: {
-      value: 45,
-      step: 5,
-      increment: function() {
-        sticker.barcode.height.value = Math.min(sticker.barcode.height.value + sticker.barcode.height.step, 100);
-        setup.barcode(barcodeElement);
-      },
-      decrement: function() {
-        sticker.barcode.height.value = Math.max(sticker.barcode.height.value - sticker.barcode.height.step, 10);
-        setup.barcode(barcodeElement);
-      }
-    },
-    position: {
-      value: 30,
-      step: 5,
-      increment: function() {
-        sticker.barcode.position.value = Math.min(sticker.barcode.position.value + sticker.barcode.position.step, 100);
-        setup.barcode(barcodeElement);
-      },
-      decrement: function() {
-        sticker.barcode.position.value = Math.max(sticker.barcode.position.value - sticker.barcode.position.step, 0);
-        setup.barcode(barcodeElement);
-      }
-    },
+    width:    new Property(propertyType.WIDTH, barcodeElement, 90, 5, 30, 100),
+    height:   new Property(propertyType.HEIGHT, barcodeElement, 45, 5, 10, 100),
+    position: new Property(propertyType.YPOSITION, barcodeElement, 30, 5, 0, 100),
     svgWidth: 0,
     svg: ""
   }
@@ -121,18 +112,21 @@ let setup = {
     setup.barcode(barcodeElem);
   },
   label: function(labelElem) {
-    labelElem.style.fontSize = sticker.label.size.value;
-    labelElem.setAttribute('y', sticker.label.position.value + '%');
+    sticker.label.size.update(labelElem);
+    sticker.label.position.update(labelElem);
+    sticker.label.spacingLetter.update(labelElem);
+    sticker.label.spacingWord.update(labelElem);
   },
   upc: function(upcElem) {
-    upcElem.style.fontSize = sticker.upc.size.value;
-    upcElem.setAttribute('y', sticker.upc.position.value + '%');
+    sticker.upc.size.update(upcElem);
+    sticker.upc.position.update(upcElem);
+    sticker.upc.spacingLetter.update(upcElem);
+    sticker.upc.spacingWord.update(upcElem);
   },
   barcode: function(barcodeElem) {
-    barcodeElem.setAttribute('width', sticker.barcode.width.value + '%');
-    barcodeElem.setAttribute('x', (100 - sticker.barcode.width.value)/2 + '%');
-    barcodeElem.setAttribute('height', sticker.barcode.height.value + '%');
-    barcodeElem.setAttribute('y', sticker.barcode.position.value + '%');
+    sticker.barcode.width.update(barcodeElem);
+    sticker.barcode.height.update(barcodeElem);
+    sticker.barcode.position.update(barcodeElem);
   }
 }
 

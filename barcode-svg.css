@@ -214,7 +214,7 @@ h1 span {
   user-select: none;
 }
 
-.sidebar p {
+.sidebar ul {
   line-height: 1.5em;
   font-size: 0.9em;
   margin-bottom: 0.5em;

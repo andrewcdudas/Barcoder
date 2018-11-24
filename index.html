@@ -50,12 +50,12 @@
       <span class="button pill-left" onclick="sticker.label.position.increment()">-</span>
     </span>
     <span class="option">Letter Spacing
-      <span class="button pill-right">+</span>
-      <span class="button pill-left">-</span>
+      <span class="button pill-right" onclick="sticker.label.spacingLetter.increment()">+</span>
+      <span class="button pill-left" onclick="sticker.label.spacingLetter.decrement()">-</span>
     </span>
     <span class="option">Word Spacing
-      <span class="button pill-right">+</span>
-      <span class="button pill-left">-</span>
+      <span class="button pill-right" onclick="sticker.label.spacingWord.increment()">+</span>
+      <span class="button pill-left" onclick="sticker.label.spacingWord.decrement()">-</span>
     </span>
   </section>
   
@@ -92,19 +92,26 @@
       <span class="button pill-left" onclick="sticker.upc.position.increment()">-</span>
     </span>
     <span class="option">Letter Spacing
-      <span class="button pill-right">+</span>
-      <span class="button pill-left">-</span>
+      <span class="button pill-right" onclick="sticker.upc.spacingLetter.increment()">+</span>
+      <span class="button pill-left" onclick="sticker.upc.spacingLetter.decrement()">-</span>
     </span>
     <span class="option">Word Spacing
-      <span class="button pill-right">+</span>
-      <span class="button pill-left">-</span>
+      <span class="button pill-right" onclick="sticker.upc.spacingWord.increment()">+</span>
+      <span class="button pill-left" onclick="sticker.upc.spacingWord.decrement()">-</span>
     </span>
   </section>
   
   <section>
     <span class="section-header">About</span>
-    <p>Implementing font selection as well as word and letter spacing is next. Print options will be implemented afterwards.</p>
-    <p>Planned print options for the 50 sticker page will include a partial page option. A custom option is also planned, details are not final.</p>
+    <span class="option">UP NEXT</span>
+    <ul>
+      <li>Letter Spacing</li>
+      <li>Word Spacing</li>
+      <li>Font Selection</li>
+      <li>Print Options</li>
+      <li>Save/Load</li>
+      <li>Multi-label</li>
+    </ul>
   </section>
 </div>
 
