@@ -20,6 +20,11 @@
     <input id="header-label" class="header-input" type="text" placeholder="Label" spellcheck="false" oninput="updateLabel(this.value)">
     <input id="header-upc" class="header-input" type="text" placeholder="UPC" spellcheck="false" oninput="updateUPC(this.value)">
   </div>
+  
+  <div id="file-control">
+    <label for="file-upload">Open</label><input id="file-upload" type="file" accept=".bcd">
+    <label for="file-save">Save</label><input id="file-save" type="button" onclick="sticker.export()">
+  </div>
 </header>
 
 <div id="optionsMenu" class="sidebar">
@@ -40,7 +45,14 @@
         <input type="checkbox" oninput="setVisibility(this.checked, document.getElementById('label-name'))" checked><span class="slider"></span>
       </label>
     </span>
-    <span class="option">Font</span>
+    <span class="option">Font
+      <select class="pill-left pill-right">
+        <option value="arial">Arial</option>
+        <option value="arial">Verdana</option>
+        <option value="arial">Roboto</option>
+        <option value="arial">Times</option>
+      </select>
+    </span>
     <span class="option">Size
       <span class="button pill-right" onclick="sticker.label.size.increment()">+</span>
       <span class="button pill-left" onclick="sticker.label.size.decrement()">-</span>
@@ -105,8 +117,6 @@
     <span class="section-header">About</span>
     <span class="option">UP NEXT</span>
     <ul>
-      <li>Letter Spacing</li>
-      <li>Word Spacing</li>
       <li>Font Selection</li>
       <li>Print Options</li>
       <li>Save/Load</li>

@@ -1,13 +1,23 @@
 "use strict";
 
 let optionsVisible=false;
-
 let labelImage = '<svg><use xlink:href="#sticker"></svg>';
 let printWindow = document.getElementById("print-area").contentWindow;
-let labelInputHeader, upcInputHeader, labelInputSide, upcInputSide = null;
 let labelElement = document.getElementById('label-name');
+let labelInputHeader = document.getElementById("header-label");
+let labelInputSide = document.getElementById("sidebar-label");
 let upcElement = document.getElementById('label-upc');
+let upcInputHeader = document.getElementById('header-upc');
+let upcInputSide = document.getElementById('sidebar-upc');
 let barcodeElement = document.getElementById('barcode');
+let fileUpload = document.getElementById('file-upload');
+
+fileUpload.addEventListener('change', function(e) {
+  let file = fileUpload.files[0]; // get the file from the input
+  let reader = new FileReader();
+  reader.onload = function(e) {sticker.import(reader.result)} // assign a function to the onload event of the FileReader
+  reader.readAsText(file); // call the read function of FileReader, when it completes the function defined previous will execute
+});
 
 const propertyType = {
   VISIBILITY:    1,
@@ -21,45 +31,120 @@ const propertyType = {
   WORDSPACING:   9
 };
 
+const fontFace = {
+  ARIAL: 1,
+  VERDANA: 2,
+  TIMES: 3
+};
+
+let defaults = {
+  letterSpacing: { step: 2, min: -10, max: 100 },
+  wordSpacing: { step: 5, min: -20, max: 100 },
+  position: { step: 2, min: 0, max: 100 },
+  fontSize: { step: 5, min: 20, max: 200 },
+  dimensions: { step: 5, min: 10, max: 100 },
+  step: function(type) {
+    switch(type) {
+      case propertyType.WIDTH:
+      case propertyType.HEIGHT:
+        return this.dimensions.step;
+      case propertyType.VISIBILITY:
+        return 0;
+      case propertyType.FONTFACE:
+        return 0;
+      case propertyType.FONTSIZE:
+        return this.fontSize.step;
+      case propertyType.YPOSITION:
+      case propertyType.XPOSITION:
+        return this.position.step;
+      case propertyType.LETTERSPACING:
+        return this.letterSpacing.step;
+      case propertyType.WORDSPACING:
+        return this.wordSpacing.step;
+    }
+  },
+  min: function(type) {
+    switch(type) {
+      case propertyType.WIDTH:
+      case propertyType.HEIGHT:
+        return this.dimensions.min;
+      case propertyType.VISIBILITY:
+        return 0;
+      case propertyType.FONTFACE:
+        return 0;
+      case propertyType.FONTSIZE:
+        return this.fontSize.min;
+      case propertyType.YPOSITION:
+      case propertyType.XPOSITION:
+        return this.position.min;
+      case propertyType.LETTERSPACING:
+        return this.letterSpacing.min;
+      case propertyType.WORDSPACING:
+        return this.wordSpacing.min;
+    }
+  },
+  max: function(type) {
+    switch(type) {
+      case propertyType.WIDTH:
+      case propertyType.HEIGHT:
+        return this.dimensions.max;
+      case propertyType.VISIBILITY:
+        return 0;
+      case propertyType.FONTFACE:
+        return 0;
+      case propertyType.FONTSIZE:
+        return this.fontSize.max;
+      case propertyType.YPOSITION:
+      case propertyType.XPOSITION:
+        return this.position.max;
+      case propertyType.LETTERSPACING:
+        return this.letterSpacing.max;
+      case propertyType.WORDSPACING:
+        return this.wordSpacing.max;
+    }
+  }
+};
+
 class Property {
   
   constructor(type, targetElement, value, step, min, max) {
     this.value = value;
-    this.step = step;
-    this.min = min;
-    this.max = max;
     this.type = type;
     this.elem = targetElement;
+    
+    this.step = step || step === 0 ? step : defaults.step(this.type);
+    this.min = min || min === 0 ? min : defaults.min(this.type);
+    this.max = max || max === 0 ? max : defaults.max(this.type);
   }
   
-  update(targetElement) {
+  update(targetElement = this.elem) {
     switch(this.type) {
-      case 1: // visibility
+      case targetElement.VISIBILITY:
         targetElement.style.visibility = value > 0 ? "visible" : "hidden";
         break;
-      case 2: // font-face
+      case targetElement.FONTFACE:
         
         break;
-      case propertyType.FONTSIZE: // font-size
+      case propertyType.FONTSIZE:
         targetElement.style.fontSize = this.value;
         break;
-      case propertyType.YPOSITION: // Y (vertical) position
+      case propertyType.YPOSITION:
         targetElement.setAttribute('y', this.value + '%');
         break;
-      case propertyType.XPOSITION: // X (horizontal) position
+      case propertyType.XPOSITION:
         targetElement.setAttribute('x', this.value + '%');
         break;
-      case propertyType.WIDTH: // width
+      case propertyType.WIDTH:
         targetElement.setAttribute('width', this.value + '%');
         targetElement.setAttribute('x', (100 - this.value)/2 + '%');
         break;
-      case propertyType.HEIGHT: // height
+      case propertyType.HEIGHT:
         targetElement.setAttribute('height', this.value + '%');
         break;
-      case propertyType.LETTERSPACING: // letter-spacing
+      case propertyType.LETTERSPACING:
         targetElement.style.letterSpacing = this.value;
         break;
-      case propertyType.WORDSPACING: // word-spacing
+      case propertyType.WORDSPACING:
         targetElement.style.wordSpacing = this.value;
         break;
     }
@@ -77,34 +162,110 @@ class Property {
   
 }
 
+function concat(stringArray) {
+  let res = '';
+  let l = stringArray.length;
+  for(let i = 0; i < l; i++)
+    res += ' ' + stringArray[i];
+  return res;
+}
+
 let sticker = {
   label: {
     value: "",
     font: "Roboto",
-    size:          new Property(propertyType.FONTSIZE, labelElement, 60, 5, 20, 200),
-    position:      new Property(propertyType.YPOSITION, labelElement, 18, 2, 0, 100),
-    spacingLetter: new Property(propertyType.LETTERSPACING, labelElement, 0, 2, -10, 100),
-    spacingWord:   new Property(propertyType.WORDSPACING, labelElement, 0, 2, -20, 60),
+    size: new Property(propertyType.FONTSIZE, labelElement, 60),
+    position: new Property(propertyType.YPOSITION, labelElement, 18),
+    spacingLetter: new Property(propertyType.LETTERSPACING, labelElement, 0),
+    spacingWord: new Property( propertyType.WORDSPACING, labelElement, 0 ),
     visible: true
   },
   upc: {
     value: "",
     font: "Roboto",
-    size:          new Property(propertyType.FONTSIZE, upcElement, 40, 5, 20, 200),
-    position:      new Property(propertyType.YPOSITION, upcElement, 84, 2, 0, 100),
-    spacingLetter: new Property(propertyType.LETTERSPACING, upcElement, 0, 2, -10, 100),
-    spacingWord:   new Property(propertyType.WORDSPACING, upcElement, 0, 2, -20, 60),
+    size: new Property(propertyType.FONTSIZE, upcElement, 40),
+    position: new Property(propertyType.YPOSITION, upcElement, 84),
+    spacingLetter: new Property(propertyType.LETTERSPACING, upcElement, 0),
+    spacingWord: new Property(propertyType.WORDSPACING, upcElement, 0),
     visible: true
   },
   barcode: {
-    width:    new Property(propertyType.WIDTH, barcodeElement, 90, 5, 30, 100),
-    height:   new Property(propertyType.HEIGHT, barcodeElement, 45, 5, 10, 100),
-    position: new Property(propertyType.YPOSITION, barcodeElement, 30, 5, 0, 100),
+    width: new Property(propertyType.WIDTH, barcodeElement, 90),
+    height: new Property(propertyType.HEIGHT, barcodeElement, 45),
+    position: new Property(propertyType.YPOSITION, barcodeElement, 30),
     svgWidth: 0,
     svg: ""
+  },
+  import: function(file) {
+    console.log('importing');
+    let obj = JSON.parse(file);
+    sticker.label.value = updateLabel(concat(obj.label[0]));
+    sticker.label.font = obj.label[1];
+    sticker.label.size.value = obj.label[2];
+    sticker.label.position.value = obj.label[3];
+    sticker.label.spacingLetter.value = obj.label[4];
+    sticker.label.spacingWord.value = obj.label[5];
+    sticker.label.visible = obj.label[6];
+    sticker.upc.value = updateUPC(concat(obj.upc[0]));
+    sticker.upc.font = obj.upc[1];
+    sticker.upc.size.value = obj.upc[2];
+    sticker.upc.position.value = obj.upc[3];
+    sticker.upc.spacingLetter.value = obj.upc[4];
+    sticker.upc.spacingWord.value = obj.upc[5];
+    sticker.upc.visible = obj.upc[6];
+    sticker.barcode.width.value = obj.barcode[0];
+    sticker.barcode.height.value = obj.barcode[1];
+    sticker.barcode.position.value = obj.barcode[2];
+    
+    sticker.label.size.update();
+    sticker.label.position.update();
+    sticker.label.spacingLetter.update();
+    sticker.label.spacingWord.update();
+    sticker.upc.size.update();
+    sticker.upc.position.update();
+    sticker.upc.spacingLetter.update();
+    sticker.upc.spacingWord.update();
+    sticker.barcode.width.update();
+    sticker.barcode.height.update();
+    sticker.barcode.position.update();
+  },
+  export: function() {
+    let data = {
+      label: [
+        sticker.label.value.split(' '), 
+        sticker.label.font, 
+        sticker.label.size.value, 
+        sticker.label.position.value, 
+        sticker.label.spacingLetter.value, 
+        sticker.label.spacingWord.value, 
+        sticker.label.visible
+      ],
+      upc: [
+        sticker.upc.value.split(' '), 
+        sticker.upc.font, 
+        sticker.upc.size.value, 
+        sticker.upc.position.value, 
+        sticker.upc.spacingLetter.value, 
+        sticker.upc.spacingWord.value, 
+        sticker.upc.visible
+      ],
+      barcode: [
+        sticker.barcode.width.value, 
+        sticker.barcode.height.value, 
+        sticker.barcode.position.value
+      ],
+      check: "barcoder"
+    };
+    let jsonData = 'data: application/json;charset=utf-8, ' + JSON.stringify(data);
+    let a = document.createElement('a');
+    a.href = jsonData;
+    a.download = concat(data.label[0]) + '.bcd';
+    
+    a.click();
   }
 };
 
+//this is a relic modified from an earlier implementation, marked for refactor
 let setup = {
   all: function(labelElem, upcElem, barcodeElem) {
     setup.label(labelElem);
@@ -135,8 +296,8 @@ function print()
   let l = printWindow.document.getElementById("label-name");
   let b = printWindow.document.getElementById("barcode");
   let u = printWindow.document.getElementById("label-upc");
-  printWindow.document.getElementById("label-name").innerHTML = sticker.label.value;
-  printWindow.document.getElementById("label-upc").innerHTML = sticker.upc.value;
+  l.innerHTML = sticker.label.value;
+  u.innerHTML = sticker.upc.value;
   b.innerHTML = sticker.barcode.svg;
   b.setAttribute("viewBox", "0 0 " + sticker.barcode.svgWidth + " 1");
   setup.all(l, u, b);
@@ -152,12 +313,6 @@ function toggleDisplay(elementID, visible)
 function updateLabel(label)
 {
   sticker.label.value = label;
-  if(labelElement == null)
-    labelElement = document.getElementById("label-name");
-  if(labelInputHeader == null)
-    labelInputHeader = document.getElementById("header-label");
-  if(labelInputSide == null)
-    labelInputSide = document.getElementById("sidebar-label");
   labelElement.innerHTML = label;
   labelInputSide.value   = label;
   labelInputHeader.value = label;
@@ -166,12 +321,6 @@ function updateLabel(label)
 function updateUPC(upc)
 {
   sticker.upc.value = upc;
-  if(upcElement == null)
-    upcElement = document.getElementById("label-upc");
-  if(upcInputHeader == null)
-    upcInputHeader = document.getElementById("header-upc");
-  if(upcInputSide == null)
-    upcInputSide = document.getElementById("sidebar-upc");
   upcElement.innerHTML = upc;
   upcInputHeader.value = upc;
   upcInputSide.value   = upc;
@@ -186,11 +335,6 @@ function setVisibility(isVisible, target)
 function blackBar(width, position)
 {
   return '<use xlink:href="#bar-' + width + '" x="' + position + '" />';
-}
-
-function test()
-{
-  console.log("oninput triggered");
 }
 
 function getBarcode(upc, barcodeId)
