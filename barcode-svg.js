@@ -163,9 +163,9 @@ class Property {
 }
 
 function concat(stringArray) {
-  let res = '';
+  let res = stringArray[0];
   let l = stringArray.length;
-  for(let i = 0; i < l; i++)
+  for(let i = 1; i < l; i++)
     res += ' ' + stringArray[i];
   return res;
 }
