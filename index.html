@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <link rel="icon" href="favicon.ico">
   <link rel="stylesheet" type="text/css" href="barcode-svg.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <title>Barcoder</title>
@@ -46,11 +47,11 @@
       </label>
     </span>
     <span class="option">Font
-      <select class="pill-left pill-right">
+      <select id="label-font-select" class="pill-left pill-right">
         <option value="arial">Arial</option>
-        <option value="arial">Verdana</option>
-        <option value="arial">Roboto</option>
-        <option value="arial">Times</option>
+        <option value="verdana">Verdana</option>
+        <option value="roboto">Roboto</option>
+        <option value="times">Times</option>
       </select>
     </span>
     <span class="option">Size
@@ -94,7 +95,14 @@
         <input type="checkbox" oninput="setVisibility(this.checked, document.getElementById('label-upc'))" checked><span class="slider"></span>
       </label>
     </span>
-    <span class="option">Font</span>
+    <span class="option">Font
+      <select id="upc-font-select" class="pill-left pill-right">
+        <option value="arial">Arial</option>
+        <option value="verdana">Verdana</option>
+        <option value="roboto">Roboto</option>
+        <option value="times">Times</option>
+      </select>
+    </span>
     <span class="option">Size
       <span class="button pill-right" onclick="sticker.upc.size.increment()">+</span>
       <span class="button pill-left" onclick="sticker.upc.size.decrement()">-</span>

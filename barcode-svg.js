@@ -11,17 +11,29 @@ let upcInputHeader = document.getElementById('header-upc');
 let upcInputSide = document.getElementById('sidebar-upc');
 let barcodeElement = document.getElementById('barcode');
 let fileUpload = document.getElementById('file-upload');
+let labelFontSelect = document.getElementById('label-font-select');
+let upcFontSelect = document.getElementById('upc-font-select');
 
 fileUpload.addEventListener('change', function(e) {
   let file = fileUpload.files[0]; // get the file from the input
   let reader = new FileReader();
   reader.onload = function(e) {sticker.import(reader.result)} // assign a function to the onload event of the FileReader
-  reader.readAsText(file); // call the read function of FileReader, when it completes the function defined previous will execute
+  reader.readAsText(file); // call the read function of FileReader, when it completes the function defined for onload will execute
+});
+
+labelFontSelect.addEventListener('change', function(e) {
+  sticker.label.font.value = labelFontSelect.options.selectedIndex;
+  sticker.label.font.update();
+});
+
+upcFontSelect.addEventListener('change', function(e) {
+  sticker.upc.font.value = upcFontSelect.options.selectedIndex;
+  sticker.upc.font.update();
 });
 
 const propertyType = {
   VISIBILITY:    1,
-  FONTFACE:      2,
+  FONTFAMILY:    2,
   FONTSIZE:      3,
   YPOSITION:     4,
   XPOSITION:     5,
@@ -31,27 +43,43 @@ const propertyType = {
   WORDSPACING:   9
 };
 
-const fontFace = {
-  ARIAL: 1,
-  VERDANA: 2,
-  TIMES: 3
+/*
+OKay, font selection.
+select font from dropdown, applies to inner sticker object and updates appearance // have value be an integer respresenting index
+saving label saves selected font // save integer
+loading label correctly applies font and changes the dropdown to the correct font // change dropdown to correct index, apply font with find(index)
+*/
+
+const fontFamily = {
+  find: function(index) {
+    switch(index) {
+      case 0:
+        return this.ARIAL;
+      case 1: 
+        return this.VERDANA;
+      case 2:
+        return this.ROBOTO;
+      case 3:
+        return this.TIMES;
+    }
+  },
+  ARIAL: "'Arial', sans-serif",
+  VERDANA: "'Verdana', sans-serif",
+  ROBOTO: "'Roboto', sans-serif",
+  TIMES: "'Times', serif"
 };
 
 let defaults = {
   letterSpacing: { step: 2, min: -10, max: 100 },
-  wordSpacing: { step: 5, min: -20, max: 100 },
-  position: { step: 2, min: 0, max: 100 },
-  fontSize: { step: 5, min: 20, max: 200 },
-  dimensions: { step: 5, min: 10, max: 100 },
+  wordSpacing:   { step: 5, min: -20, max: 100 },
+  position:      { step: 2, min: 0,   max: 100 },
+  fontSize:      { step: 5, min: 20,  max: 200 },
+  dimensions:    { step: 5, min: 10,  max: 100 },
   step: function(type) {
     switch(type) {
       case propertyType.WIDTH:
       case propertyType.HEIGHT:
         return this.dimensions.step;
-      case propertyType.VISIBILITY:
-        return 0;
-      case propertyType.FONTFACE:
-        return 0;
       case propertyType.FONTSIZE:
         return this.fontSize.step;
       case propertyType.YPOSITION:
@@ -61,6 +89,8 @@ let defaults = {
         return this.letterSpacing.step;
       case propertyType.WORDSPACING:
         return this.wordSpacing.step;
+      default:
+        return 0;
     }
   },
   min: function(type) {
@@ -70,7 +100,7 @@ let defaults = {
         return this.dimensions.min;
       case propertyType.VISIBILITY:
         return 0;
-      case propertyType.FONTFACE:
+      case propertyType.FONTFAMILY:
         return 0;
       case propertyType.FONTSIZE:
         return this.fontSize.min;
@@ -81,6 +111,8 @@ let defaults = {
         return this.letterSpacing.min;
       case propertyType.WORDSPACING:
         return this.wordSpacing.min;
+      default:
+        return 0;
     }
   },
   max: function(type) {
@@ -90,7 +122,7 @@ let defaults = {
         return this.dimensions.max;
       case propertyType.VISIBILITY:
         return 0;
-      case propertyType.FONTFACE:
+      case propertyType.FONTFAMILY:
         return 0;
       case propertyType.FONTSIZE:
         return this.fontSize.max;
@@ -101,6 +133,8 @@ let defaults = {
         return this.letterSpacing.max;
       case propertyType.WORDSPACING:
         return this.wordSpacing.max;
+      default:
+        return 0;
     }
   }
 };
@@ -111,7 +145,6 @@ class Property {
     this.value = value;
     this.type = type;
     this.elem = targetElement;
-    
     this.step = step || step === 0 ? step : defaults.step(this.type);
     this.min = min || min === 0 ? min : defaults.min(this.type);
     this.max = max || max === 0 ? max : defaults.max(this.type);
@@ -119,11 +152,11 @@ class Property {
   
   update(targetElement = this.elem) {
     switch(this.type) {
-      case targetElement.VISIBILITY:
+      case propertyType.VISIBILITY:
         targetElement.style.visibility = value > 0 ? "visible" : "hidden";
         break;
-      case targetElement.FONTFACE:
-        
+      case propertyType.FONTFAMILY:
+        targetElement.style.fontFamily = fontFamily.find(this.value);
         break;
       case propertyType.FONTSIZE:
         targetElement.style.fontSize = this.value;
@@ -173,7 +206,7 @@ function concat(stringArray) {
 let sticker = {
   label: {
     value: "",
-    font: "Roboto",
+    font: new Property(propertyType.FONTFAMILY, labelElement, 0),
     size: new Property(propertyType.FONTSIZE, labelElement, 60),
     position: new Property(propertyType.YPOSITION, labelElement, 18),
     spacingLetter: new Property(propertyType.LETTERSPACING, labelElement, 0),
@@ -182,7 +215,7 @@ let sticker = {
   },
   upc: {
     value: "",
-    font: "Roboto",
+    font: new Property(propertyType.FONTFAMILY, upcElement, 0),
     size: new Property(propertyType.FONTSIZE, upcElement, 40),
     position: new Property(propertyType.YPOSITION, upcElement, 84),
     spacingLetter: new Property(propertyType.LETTERSPACING, upcElement, 0),
@@ -197,30 +230,36 @@ let sticker = {
     svg: ""
   },
   import: function(file) {
-    console.log('importing');
     let obj = JSON.parse(file);
     sticker.label.value = updateLabel(concat(obj.label[0]));
-    sticker.label.font = obj.label[1];
+    sticker.label.font.value = obj.label[1];
     sticker.label.size.value = obj.label[2];
     sticker.label.position.value = obj.label[3];
     sticker.label.spacingLetter.value = obj.label[4];
     sticker.label.spacingWord.value = obj.label[5];
     sticker.label.visible = obj.label[6];
+    
     sticker.upc.value = updateUPC(concat(obj.upc[0]));
-    sticker.upc.font = obj.upc[1];
+    sticker.upc.font.value = obj.upc[1];
     sticker.upc.size.value = obj.upc[2];
     sticker.upc.position.value = obj.upc[3];
     sticker.upc.spacingLetter.value = obj.upc[4];
     sticker.upc.spacingWord.value = obj.upc[5];
     sticker.upc.visible = obj.upc[6];
+    
     sticker.barcode.width.value = obj.barcode[0];
     sticker.barcode.height.value = obj.barcode[1];
     sticker.barcode.position.value = obj.barcode[2];
     
+    labelFontSelect.options.selectedIndex = obj.label[1];
+    upcFontSelect.options.selectedIndex = obj.upc[1];
+    
+    sticker.label.font.update();
     sticker.label.size.update();
     sticker.label.position.update();
     sticker.label.spacingLetter.update();
     sticker.label.spacingWord.update();
+    sticker.upc.font.update();
     sticker.upc.size.update();
     sticker.upc.position.update();
     sticker.upc.spacingLetter.update();
@@ -233,7 +272,7 @@ let sticker = {
     let data = {
       label: [
         sticker.label.value.split(' '), 
-        sticker.label.font, 
+        sticker.label.font.value, 
         sticker.label.size.value, 
         sticker.label.position.value, 
         sticker.label.spacingLetter.value, 
@@ -242,7 +281,7 @@ let sticker = {
       ],
       upc: [
         sticker.upc.value.split(' '), 
-        sticker.upc.font, 
+        sticker.upc.font.value,
         sticker.upc.size.value, 
         sticker.upc.position.value, 
         sticker.upc.spacingLetter.value, 
@@ -253,8 +292,7 @@ let sticker = {
         sticker.barcode.width.value, 
         sticker.barcode.height.value, 
         sticker.barcode.position.value
-      ],
-      check: "barcoder"
+      ]
     };
     let jsonData = 'data: application/json;charset=utf-8, ' + JSON.stringify(data);
     let a = document.createElement('a');
@@ -273,12 +311,14 @@ let setup = {
     setup.barcode(barcodeElem);
   },
   label: function(labelElem) {
+    sticker.label.font.update(labelElem);
     sticker.label.size.update(labelElem);
     sticker.label.position.update(labelElem);
     sticker.label.spacingLetter.update(labelElem);
     sticker.label.spacingWord.update(labelElem);
   },
   upc: function(upcElem) {
+    sticker.upc.font.update(upcElem);
     sticker.upc.size.update(upcElem);
     sticker.upc.position.update(upcElem);
     sticker.upc.spacingLetter.update(upcElem);
