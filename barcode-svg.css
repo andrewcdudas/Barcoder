@@ -31,6 +31,12 @@ body {
   border-radius: 1.25em;
 }
 
+#file-control svg {
+  width: 1.5em;
+  height: 1.5em;
+  margin: 0.5em;
+}
+
 #file-control input {
   display: none;
   width: 0;
