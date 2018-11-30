@@ -35,6 +35,13 @@ body {
   width: 2em;
   height: 2em;
   margin: 0.25em;
+  transition: 0.2s;
+}
+
+#file-control label:hover svg {
+  width: 2.5em;
+  height: 2.5em;
+  margin: 0;
 }
 
 #file-control input {
