@@ -27,8 +27,6 @@ body {
   height: 2.5em;
   width: 2.5em;
   margin: 0 0.5em;
-  background-color: #333;
-  border-radius: 1.25em;
 }
 
 #file-control svg {
