@@ -21,7 +21,7 @@
       <rect y="1" width="22" height="21" fill="white"/>
       <rect x="11" y="2.5" width="3" height="5" rx="0.5" fill="black"/>
     </mask>
-    <rect width="22" height="22" fill="#444" mask="url(#floppy-disk-outline)"/>
+    <rect width="22" height="22" fill="#26D" mask="url(#floppy-disk-outline)"/>
     <rect x="4" width="12.5" height="9.5" rx="1" style="opacity: 0.3" mask="url(#floppy-disk-outline)"/>
     <rect x="4" y="11" width="14" height="9" rx="1" ry="1" fill="#CCC"/>
     <rect x="6" width="10" height="9" rx="0.8" fill="#999" mask="url(#floppy-disk-slide)"/>
