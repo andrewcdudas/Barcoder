@@ -234,6 +234,7 @@ h1 span {
 }
 
 .sidebar .section-header {
+  display: block;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: bold;
