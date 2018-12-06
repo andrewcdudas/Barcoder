@@ -114,17 +114,18 @@ iframe {
 
 #print-button {
   position: fixed;
-  bottom: 1.5em;
-  right: 1.5em;
+  bottom: 1em;
+  right: 1em;
   overflow: hidden;
-  width: 4em;
-  height: 4em;
+  width: 5em;
+  height: 5em;
   transition: 0.2s;
 }
 
 #print-button svg {
   position: absolute;
-  right: 0;
+  top: 0.5em;
+  right: 0.5em;
   width: 4em;
   height: 4em;
   cursor: pointer;
@@ -132,17 +133,16 @@ iframe {
 }
 
 #print-button:hover {
-  bottom: 1em;
-  right: 1em;
   background-color: #222;
   border-radius: 1em;
   width: 15em;
-  height: 5em;
 }
 
 #print-button svg:hover {
   width: 5em;
   height: 5em;
+  top: 0;
+  right: 0;
 }
 
 #print-button div {
