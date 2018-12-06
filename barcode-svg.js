@@ -13,6 +13,7 @@ let barcodeElement = document.getElementById('barcode');
 let fileUpload = document.getElementById('file-upload');
 let labelFontSelect = document.getElementById('label-font-select');
 let upcFontSelect = document.getElementById('upc-font-select');
+let printQty = document.getElementById('print-quantity');
 
 fileUpload.addEventListener('change', function(e) {
   let file = fileUpload.files[0]; // get the file from the input
@@ -341,7 +342,7 @@ let setup = {
   }
 }
 
-function print(quantity)
+function print(quantity=0)
 {
   let l = printWindow.document.getElementById("label-name");
   let b = printWindow.document.getElementById("barcode");
@@ -351,6 +352,9 @@ function print(quantity)
   b.innerHTML = sticker.barcode.svg;
   b.setAttribute("viewBox", "0 0 " + sticker.barcode.svgWidth + " 1");
   setup.all(l, u, b);
+  
+  if(quantity === 0)
+    quantity = printQty.value;
   
   let grid = printWindow.document.getElementById('grid-container');
   let result = '';
