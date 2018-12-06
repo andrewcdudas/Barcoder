@@ -353,9 +353,10 @@ function print(quantity)
   setup.all(l, u, b);
   
   let grid = printWindow.document.getElementById('grid-container');
-  grid.innerHTML = '';
+  let result = '';
   for(let i = 0; i < quantity; i++)
-    grid.innerHTML += '<div><svg><use xlink:href="#sticker"/></svg></div>';
+    result += '<div><svg><use xlink:href="#sticker"/></svg></div>';
+  grid.innerHTML = result;
   
   printWindow.focus();
   printWindow.print();
