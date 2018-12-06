@@ -372,6 +372,7 @@ function toggleDisplay(elementID, visible)
 
 function updateLabel(label)
 {
+  sticker.label.value = label;
   labelElement.innerHTML = label;
   labelInputSide.value   = label;
   labelInputHeader.value = label;
@@ -380,6 +381,7 @@ function updateLabel(label)
 
 function updateUPC(upc)
 {
+  sticker.upc.value = upc;
   upcElement.innerHTML = upc;
   upcInputHeader.value = upc;
   upcInputSide.value   = upc;
