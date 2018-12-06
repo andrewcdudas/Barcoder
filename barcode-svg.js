@@ -342,7 +342,7 @@ let setup = {
   }
 }
 
-function print(quantity=0)
+function print()
 {
   let l = printWindow.document.getElementById("label-name");
   let b = printWindow.document.getElementById("barcode");
@@ -353,8 +353,7 @@ function print(quantity=0)
   b.setAttribute("viewBox", "0 0 " + sticker.barcode.svgWidth + " 1");
   setup.all(l, u, b);
   
-  if(quantity === 0)
-    quantity = printQty.value;
+  let quantity = printQty.value;
   
   let grid = printWindow.document.getElementById('grid-container');
   let result = '';
