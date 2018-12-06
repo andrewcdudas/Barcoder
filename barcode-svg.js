@@ -191,7 +191,7 @@ class Property {
   }
   
   decrement() {
-    if(propertyType.FONTFAMILY || propertyType.VISIBLE)
+    if(this.type === propertyType.FONTFAMILY || this.type === propertyType.VISIBLE)
       return;
     this.value = Math.max(this.value - this.step, this.min);
     this.update(this.elem);
