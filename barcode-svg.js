@@ -384,7 +384,7 @@ function updateUPC(upc)
   upcInputHeader.value = upc;
   upcInputSide.value   = upc;
   getBarcode(upc, "barcode");
-  return label;
+  return upc;
 }
 
 function setVisibility(isVisible, target)
