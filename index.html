@@ -162,45 +162,11 @@
 </div>
 
 <div id="print-modal">
-  <div id="print-modal-container">
-    <span id="print-modal-close" onclick="toggleDisplay('print-modal', false)"><svg><use xlink:href="icons.svg#close"/></svg></span>
-    <form id="form-print">
-      <input class="hide" type="radio" name="page" id="page-50" checked><label for="page-50" class="print-option">
-        <svg class="print-page-type center-both drop-shadow"><use xlink:href="icons.svg#page-50"/></svg>
-      </label>
-      <input class="hide" type="radio" name="page" id="page-2"><label for="page-2" class="print-option">
-        <svg class="print-page-type center-both drop-shadow"><use xlink:href="icons.svg#page-2"/></svg>
-      </label>
-      <input class="hide" type="radio" name="page" id="page-1"><label for="page-1" class="print-option">
-        <svg class="print-page-type center-both drop-shadow"><use xlink:href="icons.svg#page-1"/></svg>
-      </label>
-    </form>
-    <div id="print-modal-content">
-      <iframe id="print-area" src="printable.html" class="drop-shadow"></iframe>
-      <div>
-        <form>
-          <input class="hide" type="radio" name="full-partial" id="page-50-full" checked><label for="page-50-full" class="temp-button">Full</label>
-          <input class="hide" type="radio" name="full-partial" id="page-50-partial"><label for="page-50-partial" class="temp-button">Partial</label>
-          <div id="p-50-f-options">
-            <input type="number" min="1" value="1">page(s) (<span></span> labels)
-          </div>
-          <div id="p-50-p-options">
-            <input type="number" min="1" max="50" value="1">Start position
-            <input type="number" min="1" max="50" value="50">End position
-          </div>
-        </form>
-      </div>
-      <div>
-      </div>
-      <div>
-      </div>
-      <button id="print-final" onclick="print()">PRINT</button>
-    </div>
-  </div>
+  <iframe id="print-area" src="printable.html"></iframe>
 </div>
 
-  <script src="barcode-svg.js"></script>
-  <script>getBarcode('1234567890ab', 'barcode', 'barcode'); setup.all(labelElement, upcElement, barcodeElement);</script>
+<script src="barcode-svg.js"></script>
+<script>getBarcode('1234567890ab', 'barcode', 'barcode'); setup.all(labelElement, upcElement, barcodeElement);</script>
   
   
 </html>

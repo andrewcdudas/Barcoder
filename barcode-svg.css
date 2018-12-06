@@ -10,6 +10,10 @@ body {
   background-color: #111;
 }
 
+iframe {
+  display: none;
+}
+
 #file-control {
   position: fixed;
   top: 0;
@@ -126,101 +130,6 @@ body {
   height: 12vh;
 }
 
-#print-modal {
-  display: none;
-  position: fixed;
-  z-index:4;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-#print-modal-container {
-  position: relative;
-  height: 90vh;
-  width: 120vh;
-  margin: 5vh auto;
-  border-radius: 2vh;
-  background-color: #DDD;
-  overflow: hidden;
-}
-
-#print-modal-content {
-  position: absolute;
-  left: 30vh;
-  top: 0;
-  width: 90vh;
-  height: 100%;
-}
-
-#print-modal-content > iframe {
-  display: block;
-  width: 41.25vh;
-  height: 55vh;
-  margin: 2vh auto;
-  border: none;
-}
-
-#print-modal-close {
-  z-index:10;
-  position: absolute;
-  top: 2vh;
-  right: 2vh;
-  cursor: pointer;
-}
-
-#print-modal-close svg {
-  width: 3vh;
-  height: 3vh;
-}
-
-.print-option {
-  cursor: pointer;
-  float: left;
-  clear: left;
-  position: relative;
-  width: 30vh;
-  height: 30vh;
-  background-color: #222;
-  border-left: 0 solid #26D;
-  border-right: 1vh solid #444;
-  transition: 0.2s;
-}
-
-.print-option:hover {
-  background-color: #333;
-}
-
-.print-page-type {
-  height: 22vh;
-  width: 17vh;
-}
-
-#p-50-f-options {
-  text-align: center;
-}
-
-#p-50-f-options input {
-  width:10vh;
-  text-align: center;
-}
-
-#print-final {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 10vh;
-}
-
-input:checked + .print-option {
-  background-color: #444;
-  border-left: 2vh solid #26D;
-  border-right: 0 solid #444;
-}
-
 h1 {
   left: 3.5rem;
   color: #DDD;
@@ -250,12 +159,6 @@ h1 span {
   padding: 1em;
   line-height: 2em;
   user-select: none;
-}
-
-.sidebar ul {
-  line-height: 1.5em;
-  font-size: 0.9em;
-  margin-bottom: 0.5em;
 }
 
 .sidebar select {

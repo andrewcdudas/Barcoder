@@ -184,13 +184,23 @@ class Property {
   }
   
   increment() {
+    if(this.type === propertyType.FONTFAMILY || this.type === propertyType.VISIBLE)
+      return;
     this.value = Math.min(this.value + this.step, this.max);
     this.update(this.elem);
   }
   
   decrement() {
+    if(propertyType.FONTFAMILY || propertyType.VISIBLE)
+      return;
     this.value = Math.max(this.value - this.step, this.min);
     this.update(this.elem);
+  }
+  
+  toggle() {
+    if(!(this.type === propertyType.VISIBLE))
+      return;
+    this.value = this.value === 0 ? 1 : 0;
   }
   
 }
@@ -331,7 +341,7 @@ let setup = {
   }
 }
 
-function print()
+function print(quantity)
 {
   let l = printWindow.document.getElementById("label-name");
   let b = printWindow.document.getElementById("barcode");
@@ -341,6 +351,11 @@ function print()
   b.innerHTML = sticker.barcode.svg;
   b.setAttribute("viewBox", "0 0 " + sticker.barcode.svgWidth + " 1");
   setup.all(l, u, b);
+  
+  let grid = printWindow.document.getElementById('grid-container');
+  for(let i = 0; i < quantity; i++)
+    grid.innerHTML += '<div><svg><use xlink:href="#sticker"/></svg></div>';
+  
   printWindow.focus();
   printWindow.print();
 }
