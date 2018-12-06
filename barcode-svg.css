@@ -139,10 +139,10 @@ iframe {
 }
 
 #print-button svg:hover {
-  width: 5em;
-  height: 5em;
-  top: 0;
-  right: 0;
+  width: 4.8em;
+  height: 4.8em;
+  top: 0.1em;
+  right: 0.1em;
 }
 
 #print-button div {
