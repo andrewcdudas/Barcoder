@@ -1,1 +1,15 @@
-Okay. Back at it. The goal is to have a completely modular system, so a saved file also includes all the data for the fields in the barcode. Users can create barcode, text, and hopefully (!) images, upon creation the settings sidebar for the item comes along for the ride. A default file on the server will be loaded with the basic Title, Barcode, and UPC. This will be the starting point. An option to start with a blank barcode will be available. Need to be able to resize barcode. Need to be able to resize page dimensions. I should make a readme.
+# Barcoder
+
+Why? I use a similar program at work, but it costs money and has a bunch of quirks to it that I could do without. It's a perfect opportunity to get some practice and build something practical.
+
+## Where I'm at
+
+I made the initial version of Barcoder after having some time off from work due to appendicitis. It was by far the most substantial thing I had built up to that point. It has now been some time and I feel like taking on the challenge to 1. Understand what I did to get to this point, 2. Make the system more customizable, and 3. Make it work, like all the time, because barcodes that don't scan are pretty worthless.
+
+## The overly general plan
+
+A modular and customizable version of Barcoder. 
+
+Any size label, any size page, and any page layout, all customizable with defaults to choose from.
+
+Any combination of elements. Text fields, barcodes, shapes, images, add/remove as needed. A default set will be provided when barcoder is first loaded.
