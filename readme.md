@@ -13,3 +13,5 @@ A modular and customizable version of Barcoder.
 Any size label, any size page, and any page layout, all customizable with defaults to choose from.
 
 Any combination of elements. Text fields, barcodes, shapes, images, add/remove as needed. A default set will be provided when barcoder is first loaded.
+
+More barcode types. As of this writing Barcoder only supports Code128B, I plan on at least fully implementing Code128 and UPC A.
