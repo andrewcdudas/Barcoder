@@ -15,3 +15,7 @@ Any size label, any size page, and any page layout, all customizable with defaul
 Any combination of elements. Text fields, barcodes, shapes, images, add/remove as needed. A default set will be provided when barcoder is first loaded.
 
 More barcode types. As of this writing Barcoder only supports Code128B, I plan on at least fully implementing Code128 and UPC A.
+
+# Currently working on
+
+Learning Vue.js. Up until now I have been working with basic javascript, but to really execute on the vision for Barcoder I need more than I can produce by myself. Enter Vue. Let's see how this goes.
