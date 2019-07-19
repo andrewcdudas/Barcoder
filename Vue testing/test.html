@@ -1,0 +1,34 @@
+<div id="app">
+  {{ message }}
+  <p :title="message">Test</p>
+  <span v-if="vis">You can see me! </span>
+  <span v-if="!vis">But you can't see me!</span>
+  <ul>
+    <li v-for="i in list">
+      {{ i.text }}
+    </li>
+  </ul>
+
+  <p>{{ rMessage1 }}</p>
+  <button v-on:click="reverseMessage1">Reverse the above message!</button>
+  <p>{{ rMessage2 }}</p>
+  <button v-on:click="reverseMessage2">Reverse the above message!</button>
+</div>
+
+<div id="app2">
+  <p>{{ message }}</p>
+  <input v-model="message">
+</div>
+
+<div id="app-7">
+  <ol>
+    <todo-item 
+      v-for="item in list" 
+      v-bind:propname="item"
+      v-bind:key="item.id" 
+    ></todo-item> <!-- It wants to have a key, it works but throws a fit without one -->
+  </ol>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="test.js"></script>
